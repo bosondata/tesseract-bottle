@@ -1,5 +1,3 @@
-import io
-
 import pytesseract
 from PIL import Image
 from bottle import Bottle, request, run
@@ -9,8 +7,7 @@ app = Bottle()
 
 @app.post("/ocr")
 def ocr():
-    img_data = request.body.read()
-    img = Image.open(io.BytesIO(img_data))
+    img = Image.open(request.body)
     try:
         return pytesseract.image_to_string(img)
     except:
